@@ -40,9 +40,15 @@ export const CulturePageTemplate = (props) => {
           {/* The page.html is actually markdown when viewing the page from the netlify CMS,
               so we must use the ReactMarkdown component to parse the markdown in that case  */}
           {page.bodyIsMarkdown ? (
-            <ReactMarkdown className="culture-description" source={page.html} />
+            <ReactMarkdown
+              className="culture-description"
+              source={page.frontmatter.description}
+            />
           ) : (
-            <HTMLContent className="culture-description" content={page.html} />
+            <HTMLContent
+              className="culture-description"
+              content={page.frontmatter.description}
+            />
           )}
         </section>
       </div>
@@ -85,7 +91,7 @@ const CulturePage = ({ data }) => {
         <meta name="description" content={seoDescription} />
         <title>{browserTitle}</title>
       </Helmet>
-      <CulturePageTemplate page={{ ...page, bodyIsMarkdown: false }} />
+      <CulturePageTemplate page={{ ...page, bodyIsMarkdown: true }} />
     </Layout>
   );
 };
@@ -102,6 +108,7 @@ export const culturePageQuery = graphql`
       html
       frontmatter {
         title
+        description
         mainImage {
           image
           imageAlt

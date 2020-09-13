@@ -50,11 +50,7 @@ export const PastGamesPageTemplate = ({
     <article className="pastGames">
       <div className="container  pastGames-container">
         <h1 className="pastGames-title">{title}</h1>
-        {bodyIsMarkdown ? (
-          <ReactMarkdown className="pastGames-description" source={content} />
-        ) : (
-          <HTMLContent className="pastGames-description" content={content} />
-        )}
+        <HTMLContent className="pastGames-description" content={content} />
         <div className="level">
           <div className="level-left">
             <div className="level-item">
@@ -123,7 +119,7 @@ const PastGamesPage = ({ data }) => {
       </Helmet>
       <PastGamesPageTemplate
         title={page.frontmatter.title}
-        content={page.html}
+        content={page.frontmatter.description}
         games={games}
       />
     </Layout>
@@ -142,6 +138,7 @@ export const pastGamesPageQuery = graphql`
       html
       frontmatter {
         title
+        description
         seo {
           browserTitle
           title
